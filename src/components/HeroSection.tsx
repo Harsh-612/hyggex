@@ -114,10 +114,10 @@ const HeroSection: React.FC<{
   const [speaking, setSpeaking] = useState(false);
   const speakText = (text: string) => {
     if ("speechSynthesis" in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.onstart = () => setSpeaking(true);
-      utterance.onend = () => setSpeaking(false);
-      speechSynthesis.speak(utterance);
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.onstart = () => setSpeaking(true);
+      speech.onend = () => setSpeaking(false);
+      speechSynthesis.speak(speech);
     }
   };
 
@@ -128,6 +128,10 @@ const HeroSection: React.FC<{
       }
     };
   }, [speaking]);
+  const [selectedTab, setSelectedTab] = useState("Study");
+  const handleTabClick = (tab: string) => {
+    setSelectedTab(tab);
+  };
 
   return (
     <div className={fullscreen ? "fullscreen" : ""}>
@@ -137,11 +141,46 @@ const HeroSection: React.FC<{
 
       <div className="w-100vw flex flex-col justify-center items-center py-8 gap-8">
         <div className={`flex text-gray-600 gap-8 ${fullscreen && "hidden"}`}>
-          <div>Study</div>
-          <div>Quiz</div>
-          <div>Test</div>
-          <div>Game</div>
-          <div>Others</div>
+          <div
+            className={`cursor-pointer px-2 py-1 text-lg ${
+              selectedTab === "Study" ? "selectedTab" : ""
+            }`}
+            onClick={() => handleTabClick("Study")}
+          >
+            &nbsp;Study&nbsp;
+          </div>
+          <div
+            className={`cursor-pointer px-2 py-1 text-lg ${
+              selectedTab === "Quiz" ? "selectedTab" : ""
+            }`}
+            onClick={() => handleTabClick("Quiz")}
+          >
+            &nbsp;Quiz&nbsp;
+          </div>
+          <div
+            className={`cursor-pointer px-2 py-1 text-lg ${
+              selectedTab === "Test" ? "selectedTab" : ""
+            }`}
+            onClick={() => handleTabClick("Test")}
+          >
+            &nbsp;Test&nbsp;
+          </div>
+          <div
+            className={`cursor-pointer px-2 py-1 text-lg ${
+              selectedTab === "Game" ? "selectedTab" : ""
+            }`}
+            onClick={() => handleTabClick("Game")}
+          >
+            &nbsp;Game&nbsp;
+          </div>
+          <div
+            className={`cursor-pointer px-2 py-1 text-lg ${
+              selectedTab === "Others" ? "selectedTab" : ""
+            }`}
+            onClick={() => handleTabClick("Others")}
+          >
+            &nbsp;Others&nbsp;
+          </div>
         </div>
         <div className="w-[45%] px-16 text-white text-2xl text-center bg-gradient-to-tr from-[#489af8] to-[#021682] h-[45vh] rounded-2xl cursor-pointer flex justify-center items-center">
           <div
