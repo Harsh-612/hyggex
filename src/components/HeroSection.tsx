@@ -88,7 +88,7 @@ const HeroSection: React.FC<{
     setCurrentQuestion(0);
     setShowAnswer(false);
   };
-
+  //this section is to add questions to the flash card
   const handleOpenCreateFlashcardModal = () => {
     setCreateFlashcardModalOpen(true);
   };
@@ -98,7 +98,7 @@ const HeroSection: React.FC<{
     setNewFlashcardQuestion("");
     setNewFlashcardAnswer("");
   };
-
+  // to add question and answer to the list of question of answer
   const handleCreateFlashcard = () => {
     if (newFlashcardQuestion && newFlashcardAnswer) {
       setFlashCardData([
@@ -111,6 +111,8 @@ const HeroSection: React.FC<{
       handleCloseCreateFlashcardModal();
     }
   };
+
+  //used inbuilt windows speech synthesis to read out questions
   const [speaking, setSpeaking] = useState(false);
   const speakText = (text: string) => {
     if ("speechSynthesis" in window) {
@@ -120,7 +122,7 @@ const HeroSection: React.FC<{
       speechSynthesis.speak(speech);
     }
   };
-
+  //dismounted the speech synthesis as soon as speech stopped to prevent errors
   useEffect(() => {
     return () => {
       if ("speechSynthesis" in window && speaking) {
@@ -128,6 +130,8 @@ const HeroSection: React.FC<{
       }
     };
   }, [speaking]);
+
+  //beautification of tabs
   const [selectedTab, setSelectedTab] = useState("Study");
   const handleTabClick = (tab: string) => {
     setSelectedTab(tab);
